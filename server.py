@@ -3,6 +3,7 @@ from flask.ext.login import LoginManager, UserMixin, current_user, login_user, l
 import os, requests
 from werkzeug import secure_filename
 
+<<<<<<< HEAD
 def createInstance():
     options = ['a', 'b', 'c', 'd']
     for option in options:
@@ -33,6 +34,8 @@ def sendAnswer(answer):
     print(len(file.readline()))
     file.close()
 
+=======
+>>>>>>> origin/master
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 
@@ -89,8 +92,11 @@ def index():
 
 @app.route('/dashboard', methods = ['POST', 'GET'])
 def dash():
+<<<<<<< HEAD
     if request.method == 'POST':
         createInstance()
+=======
+>>>>>>> origin/master
     if current_user.is_authenticated:
         user = user=current_user.get_id()
         return render_template('dashboard.html',user=user or 'Guest')
