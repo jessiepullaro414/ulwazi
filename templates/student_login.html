@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>ulwazi - Dashboard</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+</head>
+<body>
+  <nav class="purple lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="/dashboard" class="brand-logo">ulwazi</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/">Home</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="/">Home</a></li>
+		</ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <div class="row center">
+        <h5 class="header col s12 light">class code</h5>
+      </div>
+      <div class="row center">
+			<form action="/login/check" method="post">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="username" name="username" type="text">
+                            <label for="username">class code</label>
+                        </div>
+                    </div>
+                    
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col m12">
+                            <p class="right-align">
+										<button type="submit" class="btn btn-large waves-effect waves-light">Submit</button>
+                            </p>
+                        </div>
+                    </div>
+                </form>      </div>
+      <br><br>
+
+    </div>
+  </div>
+
+    <div class="section">
+
+    </div>
+  </div>
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+  </body>
+
+  <footer class="page-footer grey">
+    <div class="container">
+      <div class="row">
+        <div class="col l3 s12">
+          <h5 class="white-text">Quick Links</h5>
+          <ul>
+            <li><a class="white-text" href="/">Home</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+       A project by Jessie Pullaro, Matt Jagodzinski, Frank Calas and Jesus Barrios.
+      </div>
+    </div>
+  </footer>
+
+
+
+</html>
