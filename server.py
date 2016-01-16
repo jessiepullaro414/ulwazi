@@ -3,16 +3,14 @@ from flask.ext.login import LoginManager, UserMixin, current_user, login_user, l
 import os
 from werkzeug import secure_filename
 
-app = Flask(__name__)
-
-
+app = Flask(__name__, static_folder='static', static_url_path='')
 
 
 #Start Server at Port 5000
 if os.getenv("VCAP_APP_PORT"):
     port = int(os.getenv("VCAP_APP_PORT"))
 else:
-    port = 5000
+    port = 80
 
 # use for encrypt session
 app.config['SECRET_KEY'] = 'b56936b292f44fc397f77d882b3418ee'
@@ -29,7 +27,7 @@ class User(UserMixin):
     '''Simple User class'''
     USERS = {
         # user : 
-        'admin': ''
+        'Jessie Pullaro': '2345'
     }
 
     def __init__(self, id):
@@ -53,15 +51,15 @@ def load_user(id):
 
 @app.route('/')
 def index():
-    if current_user.is_authenticated():
-        user = user=current_user.get_id()
+    if current_user.is_authenticated:
+        user= user=current_user.get_id()
         return render_template('index.html')
     else:
         return render_template('index.html')
 
 @app.route('/dashboard')
 def dash():
-    if current_user.is_authenticated():
+    if current_user.is_authenticated:
         user = user=current_user.get_id()
         return render_template('dashboard.html',user=user or 'Guest')
     else:
@@ -69,12 +67,19 @@ def dash():
 
 @app.route('/login/student')
 def student_login():
-    if current_user.is_authenticated():
+    if current_user.is_authenticated:
         user = user=current_user.get_id()
         return redirect('/dashboard')
     else:
         return render_template('student_login.html')
 
+@app.route('/teach_dashboard')
+def teach_dashboard():
+    if current_user.is_authenticated:
+        user = user=current_user.get_id()
+        return render_template('teach_dashboard.html')
+    else:
+        return redirect('/')
 
 
 @app.route('/login/check', methods=['post'])
@@ -91,7 +96,7 @@ def login_check():
 @app.route('/logout')
 def logout():
     logout_user()
-    if current_user.is_authenticated():
+    if current_user.is_authenticated:
         user = user=current_user.get_id()
         return redirect('/dashboard')
     else:
