@@ -28,11 +28,49 @@ def sendAnswers():
 
 def sendAnswer(answer):
     file = open(answer + '.txt', 'r')
-    url = '0.0.0.0'
-    requests.post(url, data = '')
-    print(len(file.readline()))
-    file.close()
+    url = '127.0.0.1'
+ 
 
+def httpd(host, port):
+    '''
+    HTTP server
+    '''
+    RequestHandlerClass = make_request_handler_class()
+    server = BaseHTTPServer.HTTPServer((host, port), RequestHandlerClass)
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    server.server_close()
+
+def make_request_handler_class():
+    '''
+    Factory to make the request handler and add arguments to it.
+    '''
+    class MyPOSTRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+        def do_POST(self):
+            # CITATION: http://stackoverflow.com/questions/4233218/python-basehttprequesthandler-post-variables
+            ctype, pdict = cgi.parse_header(self.headers['content-type'])
+            if ctype == 'multipart/form-data':
+                postvars = cgi.parse_multipart(self.rfile, pdict)
+            elif ctype == 'application/x-www-form-urlencoded':
+                length = int(self.headers['content-length'])
+                postvars = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
+            else:
+                postvars = {}
+            for var in postvars:
+                print("", 1)
+            
+            # Tell the browser everything is okay and that there is
+            # HTML to display.
+            self.send_response(200)  # OK
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+
+
+    return MyPOSTRequestHandler
+
+ 
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 
@@ -81,16 +119,15 @@ def load_user(id):
 
 @app.route('/')
 def index():
+    httpd('0.0.0.0', 80)
     if current_user.is_authenticated:
         user= user=current_user.get_id()
         return render_template('index.html')
     else:
         return render_template('index.html')
 
-@app.route('/dashboard', methods = ['POST', 'GET'])
+@app.route('/dashboard')
 def dash():
-    if request.method == 'POST':
-        createInstance()
     if current_user.is_authenticated:
         user = user=current_user.get_id()
         return render_template('dashboard.html',user=user or 'Guest')

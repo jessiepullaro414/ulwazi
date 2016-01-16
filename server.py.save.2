@@ -29,7 +29,8 @@ def sendAnswers():
 def sendAnswer(answer):
     file = open(answer + '.txt', 'r')
     url = '0.0.0.0'
-    requests.post(url, data = '')
+    
+requests.post(url, data = '')
     print(len(file.readline()))
     file.close()
 
@@ -87,10 +88,9 @@ def index():
     else:
         return render_template('index.html')
 
-@app.route('/dashboard', methods = ['POST', 'GET'])
+
+@app.route('/dashboard', methods = ['post'])
 def dash():
-    if request.method == 'POST':
-        createInstance()
     if current_user.is_authenticated:
         user = user=current_user.get_id()
         return render_template('dashboard.html',user=user or 'Guest')
@@ -107,6 +107,7 @@ def student_login():
 
 @app.route('/teach_dashboard')
 def teach_dashboard():
+    httpd('0.0.0.0', 80)
     if current_user.is_authenticated:
         user = user=current_user.get_id()
         return render_template('teach_dashboard.html')
